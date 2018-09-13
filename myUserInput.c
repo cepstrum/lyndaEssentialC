@@ -11,7 +11,7 @@ int askUserForInt()
 	char inputArray[INT_MAX_LINE];
 	char *end;
 	int x;
-	short int flag;
+	short int numberFlag;
 	int userInputAsInt;
 
 	for (x = 0; x < sizeof inputArray; x++) // initialize array to all 0's so that we can check total input and remove garbage
@@ -19,9 +19,9 @@ int askUserForInt()
 		inputArray[x] = 0;
 	}
 
-	flag = 0;
+	numberFlag = 0;
 
-	while (flag == 0)
+	while (numberFlag == 0)
 	{
 		printf("using an integer value: "); // before calling this function printf something more specific like "Enter loan amount" (using integer value)
 		fgets(inputArray, sizeof inputArray, stdin);
@@ -30,7 +30,7 @@ int askUserForInt()
 		{
 			if (((inputArray[x] > 47) && (inputArray[x] < 58)) || (inputArray[x] == 0)) //between 47 and 58 are numbers, 0 is null created earlier
 			{	
-				flag = 1;
+				numberFlag = 1;
 				//printf("I got a number! \n");
 			} 
 			else if (inputArray[x] == 10) //newline from fgets is replaced by 0
@@ -42,7 +42,7 @@ int askUserForInt()
 			{ 
 
 				printf("I did not get a number, try again by entering only a positive whole number without characters, spaces, or other syntax \n");
-				flag = 0;
+				numberFlag = 0;
 				for (x = 0; x < sizeof inputArray; x++)
 				{
 					inputArray[x] = 0;
@@ -67,7 +67,7 @@ float askUserForFloat()
 	char inputArray[FLOAT_MAX_LINE];
 	char *end;
 	int x;
-	short int flag;
+	short int numberFlag, decimalFlag;
 	float userInputAsFloat;
 
 
@@ -76,19 +76,36 @@ float askUserForFloat()
 		inputArray[x] = 0;
 	}
 
-	flag = 0;
+	numberFlag = 0;
+	decimalFlag = 0;
 
-	while (flag == 0)
+	while (numberFlag == 0)
 	{
 		printf("using a float value: "); // before calling this function printf something more specific like "Enter loan amount" (using float value)
 		fgets(inputArray, sizeof inputArray, stdin);
 
 		for (x = 0; x < sizeof inputArray; x++)
 		{
-			if (((inputArray[x] > 47) && (inputArray[x] < 58)) || (inputArray[x] == 0) || (inputArray[x] == 46)) //between 47 and 58 are numbers in ascii, 0 is null created earlier, 46 is a decimal point
+			if (((inputArray[x] > 47) && (inputArray[x] < 58)) || (inputArray[x] == 0)) //between 47 and 58 are numbers in ascii, 0 is null created earlier, 46 is a decimal point
 			{	
-				flag = 1;
+				numberFlag = 1;
 				//printf("I got a number! \n");
+			}
+			else if(inputArray[x] == 46)
+			{
+				if (decimalFlag == 1)
+				{
+					printf("Too many decimal points in the number you entered, please try again \n");
+					numberFlag = 0;
+					decimalFlag = 0;
+					for (x = 0; x < sizeof inputArray; x++)
+					{
+					inputArray[x] = 0;
+					}
+					break;
+				}
+
+				decimalFlag = 1;
 			} 
 			else if (inputArray[x] == 10) //newline from fgets is replaced by 0
 			{
@@ -98,8 +115,8 @@ float askUserForFloat()
 			else
 			{ 
 
-				printf("I did not get a number, try again by entering only a positive number without characters (with the exception of a decimal), spaces, or other syntax \n");
-				flag = 0;
+				printf("I did not get a number, try again by entering only a positive number without characters (with the exception of a single decimal), spaces, or other syntax \n");
+				numberFlag = 0;
 				for (x = 0; x < sizeof inputArray; x++)
 				{
 					inputArray[x] = 0;

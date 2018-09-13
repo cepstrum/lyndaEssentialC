@@ -11,7 +11,7 @@
 
 
 void getUserInput(float *loanAmount, int *yearsOfLoan, float *interestRate);
-float calculateMonthlyPayment(float loanAmount, int yearsOfLoan, float interestRate);
+double calculateMonthlyPayment(float loanAmount, int yearsOfLoan, float interestRate);
 float calculateTotalPayment(float, float);
 
 int main(void)
@@ -32,7 +32,7 @@ void getUserInput(float *loanAmount, int *yearsOfLoan, float *interestRate)
 {
 	
 	printf("Enter the amount of years for the loan " );	
-	while ((*yearsOfLoan = askUserForInt()) == 0)
+	while ((*yearsOfLoan = askUserForInt()) == 0) 
 	{
 		printf("You entered 0 which is an invalid amount of years, enter at least 1 year ");
 	}
@@ -51,15 +51,15 @@ void getUserInput(float *loanAmount, int *yearsOfLoan, float *interestRate)
 	
 }
 
-float calculateMonthlyPayment(float loanAmount, int yearsOfLoan, float interestRate)
+double calculateMonthlyPayment(float loanAmount, int yearsOfLoan, float interestRate)
 {
 	if (interestRate != 0)
 	{
-		float i, discount, onePlusI, num, denom, n;
+		double i, discount, onePlusI, num, denom, n;
 
 		i = (interestRate/100) / 12;
 		n = yearsOfLoan * 12;
-		
+
 		onePlusI = pow((1+i), n);
 
 		num = onePlusI - 1;
