@@ -31,7 +31,7 @@ int main(void)
 void getUserInput(float *loanAmount, int *yearsOfLoan, float *interestRate)
 {
 	
-	printf("Enter the amount of years for the loan " );	
+	printf("Enter the amount of years for the loan: " );	
 	while ((*yearsOfLoan = askUserForInt()) == 0) 
 	{
 		printf("You entered 0 which is an invalid amount of years, enter at least 1 year ");
