@@ -42,7 +42,7 @@ int askUserForInt()
 
 			if (newlineFlag == 0)
 			{
-				printf("The input you entered was too long \n");
+				printf("Too many digits in input \n");
 				while ((ch = getchar()) != 10 && ch != EOF)
 				{
 					
@@ -104,8 +104,8 @@ int askUserForInt()
 	userInputAsInt = strtol(inputArray, &end, 10);
 	if (userInputAsInt >= 2147483647 )
 	{
-		printf("The number you entered is equal to or exceeds 2147483646, we will use the maximum value of 2147483647 as your input\n");
-		userInputAsInt = 2147483647;
+		printf("The number you entered is equal to or exceeds 2147483646, please try again: ");
+		askUserForInt();
 	}
 		
 	return userInputAsInt;
@@ -115,24 +115,25 @@ int askUserForInt()
 
 
 
-float askUserForFloat()
+double askUserForDouble()
 {
 	char inputArray[FLOAT_MAX_LINE];
 	char *end;
 	int x, y;
 	int ch;
 	short int numberFlag, decimalFlag, negativeFlag, newlineFlag;
-	float userInputAsFloat;
+	double userInputAsFloat;
 
 	numberFlag = 0;
-	decimalFlag = 0;
+	//decimalFlag = 0;
 	newlineFlag = 0;
 	negativeFlag = 0;
 
 	while (numberFlag == 0)
 	{
 		y = 0;
-		for (x = 0; x < sizeof inputArray; x++) // initialize array to all 0's so that we can check total input and remove garbage
+		decimalFlag = 0;
+		for (x = 0; x <= sizeof inputArray; x++) // initialize array to all 0's so that we can check total input and remove garbage
 		{
 			inputArray[x] = 0;
 		}
@@ -205,7 +206,7 @@ float askUserForFloat()
 				else
 				{ 
 
-					printf("I did not get a number, try again by entering only a positive number without characters (with the exception of a single decimal or negative sign), spaces, or other syntax \n");
+					printf("I did not get a number, try again by entering only a positive number without characters (with the exception of a single decimal or negative sign), spaces, or other syntax: ");
 					numberFlag = 0;
 					for (x = 0; x < sizeof inputArray; x++)
 					{
@@ -221,12 +222,13 @@ float askUserForFloat()
 		}	
 	}
 
-	userInputAsFloat = strtof(inputArray, &end);
-	if (userInputAsFloat >= 999999986991104)
-	{						
-		printf("You entered a number which was too high, we are using $999,999,986,991,104.0 instead");
-		userInputAsFloat = 999999986991104;
-	}
+	userInputAsFloat = strtod(inputArray, &end);
+	// if (userInputAsFloat >= 999999986991104)
+	// {						
+	// 	printf("You entered a number which was too high, please try again");
+	// 	askUserForDouble();
+		
+	// }
 		
 	return userInputAsFloat;
 
