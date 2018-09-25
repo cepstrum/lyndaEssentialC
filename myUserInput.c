@@ -126,13 +126,14 @@ double askUserForDouble()
 
 	numberFlag = 0;
 	//decimalFlag = 0;
-	newlineFlag = 0;
-	negativeFlag = 0;
+	//newlineFlag = 0;
+	//negativeFlag = 0;
 
 	while (numberFlag == 0)
 	{
 		y = 0;
 		decimalFlag = 0;
+		newlineFlag = 0;
 		for (x = 0; x <= sizeof inputArray; x++) // initialize array to all 0's so that we can check total input and remove garbage
 		{
 			inputArray[x] = 0;
@@ -142,7 +143,7 @@ double askUserForDouble()
 		{
 			for (x = 0; x <= sizeof inputArray; x++)
 			{
-				//printf("element %d is: %d\n", x, inputArray[x]);
+				printf("element %d is: %d\n", x, inputArray[x]);
 				if (inputArray[x] == 10) // if newline
 				{
 					newlineFlag = 1;
@@ -181,15 +182,16 @@ double askUserForDouble()
 				{
 					if (decimalFlag == 1)
 					{
-						printf("Too many decimal points in the number you entered, please try again \n");
-						numberFlag = 0;
-						decimalFlag = 0;						
+						printf("Too many decimal points in the number you entered, please try again: ");
+						numberFlag = 0;						
+						y = 0;
+																			
 						break;
 					}
 
 					decimalFlag = 1;
 				} 
-				else if (inputArray[x] == 10) //newline from fgets is replaced by 0. If this is removed, user can hit return and fgets will add only a newline // if number flag exists, brek
+				else if (inputArray[x] == 10) //newline from fgets is replaced by 0. If this is removed, user can hit return and fgets will add only a newline // if number flag exists, break
 					{
 					
 						if (numberFlag == 0)
